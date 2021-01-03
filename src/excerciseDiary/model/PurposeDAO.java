@@ -12,7 +12,6 @@ public class PurposeDAO {
 		Purpose p = null;
 		
 		try {
-			System.out.println("dddddddddddddddddddddddddd"+uPurpose);
 			p = (Purpose) em.createNativeQuery("select * from purpose where purpose=?", Purpose.class)
 					.setParameter(1, uPurpose).getSingleResult();
 			

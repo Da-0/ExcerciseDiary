@@ -23,34 +23,31 @@ public class EDService {
 	}
 	
 	// 로그인
-	public static boolean checkUser(String userId, String password) throws NotExistException, SQLException{
-		notExistUser(userId);
+	public static boolean checkUser(String userId, String password) throws NotExistException, SQLException {
 		boolean result = false;
+		Users user = UserDAO.getUser(userId);
 		
-		try {
-			Users user = UserDAO.getUser(userId);
-			try {
-				if(user.getUserId().equals(userId) && user.getUserPassword().equals(password)) {
-					result = true;
-				}
-			} catch (Exception e) {
-				throw new NotExistException("비밀번호 입력 오류입니다.");
-			}
-		} catch (Exception e) {
-			throw new NotExistException("로그인 실패");
+		if(user == null) {
+			throw new NotExistException("존재하는 id가 없습니다.");
 		}
+		if(user.getUserId().equals(userId) && user.getUserPassword().equals(password)) {
+			result = true;
+		} 
+		
 		return result;
 	}
 
 	// 회원가입
-	public static boolean addUser(Users user) throws MessageException, SQLException {
-		boolean result = false;
-		try{
-			result = UserDAO.addUser(user);
-		}catch(SQLException s){
-			throw new MessageException("이미 존재하는 ID입니다 다시 시도 하세요");
-		}
-		return result;
+	public static boolean addUser(Users user) throws Exception {
+		return UserDAO.addUser(user);
+//		boolean result = true;
+//		
+//		result = UserDAO.addUser(user);
+//		if(!result) {
+//			result = false;
+//			throw new MessageException("이미 존재하는 ID입니다 다시 시도 하세요");
+//		}
+//		return result;
 	}
 
 	// 목적 수정
