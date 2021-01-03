@@ -15,11 +15,12 @@ ${sessionScope.successMsg}
 <hr><p>
 
 <form action="excerciseDiary" method="post">
-	<input type="hidden" name="command" value="updateUserReq"> 
+	<input type="hidden" name="command" value="updateUserReq">
+	<input type="hidden" name="userId" value="${id.userId}">
 	<table border="1">
 		
 		<tr>
-			<td>id</td><td>${sessionScope.id.userId}</td>
+			<td>id</td><td>${id.userId}</td>
 		</tr>
 		<tr>	
 			<td>pw</td><td>${id.userPassword}</td>
